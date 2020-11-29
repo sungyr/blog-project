@@ -1,4 +1,4 @@
-const BlogPost = require("../models/blogPost");
+const BlogPost = require("../models/blogPost.js");
 const path = require("path");
 
 module.exports = (req, res) => {
