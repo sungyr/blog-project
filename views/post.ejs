@@ -16,11 +16,10 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
               <h1><%=blogpost.title %></h1>
-              <h2 class="subheading"><%= blogpost.body %></h2>
+              <h2 class="subheading"><%- blogpost.body %></h2>
               <span class="meta"
-                >Posted by
-                <a href="#"><%= blogpost.username %> </a>
-                on <%= blogpost.datePosted.toDateString() %>
+                >Posted by <%= blogpost.userid.username %> on <%=
+                blogpost.datePosted.toDateString() %>
               </span>
             </div>
           </div>
@@ -32,7 +31,7 @@
     <article>
       <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto"><%= blogpost.body %></div>
+          <div class="col-lg-8 col-md-10 mx-auto"><%- blogpost.body %></div>
         </div>
       </div>
     </article>
