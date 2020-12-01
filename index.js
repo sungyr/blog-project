@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
-app.use("/posts/store", validateMiddleWare);
+// app.use("/posts/store", validateMiddleWare);
 app.use(
   expressSession({
     secret: "keyboard cat",
