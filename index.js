@@ -5,19 +5,15 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
 const fileUpload = require("express-fileupload");
-const newPostController = require("./controllers/newPost");
 const homeController = require("./controllers/home");
-const getPostController = require("./controllers/getPost");
-const storePostController = require("./controllers/storePost");
-const newUserController = require("./controllers/newUser");
-const storeUserController = require("./controllers/storeUser");
-const loginController = require("./controllers/login");
-const loginUserController = require("./controllers/loginUser");
+const logInController = require("./controllers/loginController");
+const postController = require("./controllers/postController");
+const registerController = require("./controllers/registerController");
 const validateMiddleWare = require("./middleware/validationMiddleWare");
 const authMiddleWare = require("./middleware/authMiddleWare");
 const redirectIfAuthenticatedMiddleWare = require("./middleware/redirectIfAuthenticatedMiddleWare");
 const expressSession = require("express-session");
-const logoutController = require("./controllers/logOut");
+
 mongoose.connect(
   "mongodb+srv://sung3927:sung0805@cluster0.dttf9.mongodb.net/test",
   {
@@ -45,22 +41,30 @@ app.use("*", (req, res, next) => {
   next();
 });
 app.get("/", homeController);
-app.get("/post/:id", getPostController);
-app.get("/posts/new", authMiddleWare, newPostController);
-app.post("/posts/store", authMiddleWare, storePostController);
-app.get("/auth/register", redirectIfAuthenticatedMiddleWare, newUserController);
+app.get("/post/:id", postController.getPost);
+app.get("/posts/new", authMiddleWare, postController.newPost);
+app.post("/posts/store", authMiddleWare, postController.storePost);
+app.get(
+  "/auth/register",
+  redirectIfAuthenticatedMiddleWare,
+  registerController.newUser
+);
 app.post(
   "/users/register",
   redirectIfAuthenticatedMiddleWare,
-  storeUserController
+  registerController.storeUser
 );
-app.get("/auth/login", redirectIfAuthenticatedMiddleWare, loginController);
+app.get(
+  "/auth/login",
+  redirectIfAuthenticatedMiddleWare,
+  logInController.logIn
+);
 app.post(
   "/users/login",
   redirectIfAuthenticatedMiddleWare,
-  loginUserController
+  logInController.logInUser
 );
-app.get("/auth/logout", logoutController);
+app.get("/auth/logout", logInController.logOut);
 app.use((req, res) => res.render("notfound"));
 
 let port = process.env.PORT;

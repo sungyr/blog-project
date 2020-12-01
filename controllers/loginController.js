@@ -1,7 +1,11 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
-module.exports = (req, res) => {
+const logIn = (req, res) => {
+  res.render("login");
+};
+
+const logInUser = (req, res) => {
   const { username, password } = req.body;
 
   User.findOne({ username: username }, (error, user) => {
@@ -19,3 +23,11 @@ module.exports = (req, res) => {
     }
   });
 };
+
+const logOut = (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
+};
+
+module.exports = { logIn, logInUser, logOut };

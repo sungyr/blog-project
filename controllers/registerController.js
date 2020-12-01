@@ -1,7 +1,7 @@
 const User = require("../models/user.js");
 const path = require("path");
 
-module.exports = (req, res) => {
+const storeUser = (req, res) => {
   User.create(req.body, (error, user) => {
     if (error) {
       const validationErrors = Object.keys(error.errors).map(
@@ -14,3 +14,22 @@ module.exports = (req, res) => {
     res.redirect("/");
   });
 };
+
+const newUser = (req, res) => {
+  var username = "";
+  var password = "";
+  const data = req.flash("data")[0];
+
+  if (typeof data != "undefined") {
+    username = data.username;
+    password = data.password;
+  }
+
+  res.render("register", {
+    errors: req.flash("validationErrors"),
+    username: username,
+    password: password,
+  });
+};
+
+module.exports = { storeUser, newUser };
