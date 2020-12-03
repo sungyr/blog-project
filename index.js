@@ -18,6 +18,7 @@ mongoose.connect(
   "mongodb+srv://sung3927:sung0805@cluster0.dttf9.mongodb.net/test",
   {
     useNewUrlParser: true,
+    useCreateIndex: true,
     useUnifiedTopology: true,
   }
 );
@@ -40,7 +41,9 @@ app.use("*", (req, res, next) => {
   loggedIn = req.session.userId;
   next();
 });
-app.get("/", homeController);
+app.get("/", homeController.mainPage);
+app.get("/:page", homeController.mainPage);
+
 app.get("/post/:id", postController.getPost);
 app.get("/posts/new", authMiddleWare, postController.newPost);
 app.post("/posts/store", authMiddleWare, postController.storePost);

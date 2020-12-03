@@ -19,6 +19,26 @@
     </header>
 
     <!-- Main Content -->
+    <div class="standard-wrapper">
+      <header>
+        <div>
+          <h2>Search For Posts</h2>
+        </div>
+        <div class="header-form">
+          <form action="/shop/1/">
+            <input type="text" name="search" placeholder="Search" />
+            <button type="submit">Search</button>
+          </form>
+        </div>
+        <div><h4>Displaying Total <span><%= numOfResults %></span> Results</h4>
+          <h4>
+            Page 
+            <span><%= currentPage %></span> 
+            of 
+            <span><%= pages %></span> 
+          </h4></div>
+      </header>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
@@ -38,9 +58,27 @@
 
           <!-- Pager -->
           <div class="clearfix">
-            <a class="btn btn-primary float-right" href="#"
-              >Older Posts &rarr;</a
+            <% if (currentPage == 1 && pages > 1) { %>
+            <a
+              class="btn btn-primary float-right"
+              href="/<%= parseInt(currentPage) + 1 %>"
+              >Page <%= parseInt(currentPage) + 1 %> &rarr;</a
             >
+            <% } else if (currentPage < pages) { %>
+            <a class="btn btn-primary float-left" href="/<%= parseInt(currentPage) - 1 %>">
+              &larr; Page <%= parseInt(currentPage) - 1 %>
+            </a>
+            <a class="btn btn-primary float-right" href="/<%= parseInt(currentPage) + 1 %>">
+              Page <%= parseInt(currentPage) + 1 %> &rarr;
+            </a>
+            <% } else if (currentPage == pages && pages > 1) { %>
+              <a class="btn btn-primary float-left"
+              href="/<%= parseInt(currentPage) - 1 %>">
+                &larr; Page 
+                <%=parseInt(currentPage) - 1 %>
+              </span>
+              </a>
+              <% } %>
           </div>
         </div>
       </div>
