@@ -1,5 +1,4 @@
 const BlogPost = require("../models/blogPost");
-const escapeRegex = require("../regex-escape");
 
 const mainPage = async (req, res) => {
   const resPerPage = 3;

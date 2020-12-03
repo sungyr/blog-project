@@ -1,8 +1,7 @@
 const User = require("../models/user.js");
-const path = require("path");
 
 const storeUser = (req, res) => {
-  User.create(req.body, (error, user) => {
+  User.create(req.body, (error) => {
     if (error) {
       const validationErrors = Object.keys(error.errors).map(
         (key) => error.errors[key].message

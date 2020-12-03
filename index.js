@@ -9,7 +9,7 @@ const homeController = require("./controllers/home");
 const logInController = require("./controllers/loginController");
 const postController = require("./controllers/postController");
 const registerController = require("./controllers/registerController");
-const validateMiddleWare = require("./middleware/validationMiddleWare");
+
 const authMiddleWare = require("./middleware/authMiddleWare");
 const redirectIfAuthenticatedMiddleWare = require("./middleware/redirectIfAuthenticatedMiddleWare");
 const expressSession = require("express-session");
@@ -22,7 +22,6 @@ mongoose.connect(
     useUnifiedTopology: true,
   }
 );
-global.loggedIn = null;
 
 app.use(fileUpload());
 app.use(flash());
@@ -37,6 +36,7 @@ app.use(
   })
 );
 
+global.loggedIn = null;
 app.use("*", (req, res, next) => {
   loggedIn = req.session.userId;
   next();
